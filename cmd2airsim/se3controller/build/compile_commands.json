@@ -1,0 +1,68 @@
+[
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"se3controller\\\" -Dse3control_EXPORTS -I/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -g -fPIC -o CMakeFiles/se3control.dir/src/se3controller/se3control.cpp.o -c /home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/se3control.cpp",
+  "file": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/se3control.cpp",
+  "output": "CMakeFiles/se3control.dir/src/se3controller/se3control.cpp.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"se3controller\\\" -Dse3control_EXPORTS -I/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -g -fPIC -o CMakeFiles/se3control.dir/src/se3controller/jerk_tracking_control.cpp.o -c /home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/jerk_tracking_control.cpp",
+  "file": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/jerk_tracking_control.cpp",
+  "output": "CMakeFiles/se3control.dir/src/se3controller/jerk_tracking_control.cpp.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"se3controller\\\" -Dse3control_EXPORTS -I/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -g -fPIC -o CMakeFiles/se3control.dir/src/se3controller/nonlinear_attitude_control.cpp.o -c /home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/nonlinear_attitude_control.cpp",
+  "file": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/nonlinear_attitude_control.cpp",
+  "output": "CMakeFiles/se3control.dir/src/se3controller/nonlinear_attitude_control.cpp.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"se3controller\\\" -Dse3control_EXPORTS -I/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -g -fPIC -o CMakeFiles/se3control.dir/src/se3controller/nonlinear_geometric_control.cpp.o -c /home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/nonlinear_geometric_control.cpp",
+  "file": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/src/se3controller/nonlinear_geometric_control.cpp",
+  "output": "CMakeFiles/se3control.dir/src/se3controller/nonlinear_geometric_control.cpp.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_EXPORTS -I/usr/src/googletest/googlemock/include -I/usr/src/googletest/googlemock -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o gtest/googlemock/CMakeFiles/gmock.dir/usr/src/googletest/googletest/src/gtest-all.cc.o -c /usr/src/googletest/googletest/src/gtest-all.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest-all.cc",
+  "output": "gtest/googlemock/CMakeFiles/gmock.dir/usr/src/googletest/googletest/src/gtest-all.cc.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_EXPORTS -I/usr/src/googletest/googlemock/include -I/usr/src/googletest/googlemock -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /usr/src/googletest/googlemock/src/gmock-all.cc",
+  "file": "/usr/src/googletest/googlemock/src/gmock-all.cc",
+  "output": "gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS -I/usr/src/googletest/googlemock/include -I/usr/src/googletest/googlemock -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o gtest/googlemock/CMakeFiles/gmock_main.dir/usr/src/googletest/googletest/src/gtest-all.cc.o -c /usr/src/googletest/googletest/src/gtest-all.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest-all.cc",
+  "output": "gtest/googlemock/CMakeFiles/gmock_main.dir/usr/src/googletest/googletest/src/gtest-all.cc.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS -I/usr/src/googletest/googlemock/include -I/usr/src/googletest/googlemock -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o -c /usr/src/googletest/googlemock/src/gmock-all.cc",
+  "file": "/usr/src/googletest/googlemock/src/gmock-all.cc",
+  "output": "gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS -I/usr/src/googletest/googlemock/include -I/usr/src/googletest/googlemock -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /usr/src/googletest/googlemock/src/gmock_main.cc",
+  "file": "/usr/src/googletest/googlemock/src/gmock_main.cc",
+  "output": "gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_EXPORTS -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o gtest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /usr/src/googletest/googletest/src/gtest-all.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest-all.cc",
+  "output": "gtest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build",
+  "command": "/usr/bin/c++ -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_main_EXPORTS -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest -g -fPIC  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /usr/src/googletest/googletest/src/gtest_main.cc",
+  "file": "/usr/src/googletest/googletest/src/gtest_main.cc",
+  "output": "gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+}
+]
