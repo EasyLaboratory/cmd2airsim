@@ -1,0 +1,14 @@
+<launch>
+
+    <param name="radius" value="5.0" />
+    <param name="altitude" value="8.0" />
+    <param name="omega" value="1" />
+    <param name="dt" value="0.02" />
+
+    <node name="flying_example" pkg="se3controller" type="flying_example" output="screen">
+    </node>     
+
+    <!-- <node name="cmd2airsim" pkg="traj_server" type="cmd2airsim" output="screen" >
+    </node> -->
+
+</launch>

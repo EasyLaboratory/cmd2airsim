@@ -1,6 +1,0 @@
-<launch>
-
-    <node name="traj_server" pkg="traj_server" type="traj_server" output="screen" >
-    </node>
-    
-</launch>

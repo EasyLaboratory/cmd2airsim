@@ -1,8 +1,0 @@
-prefix=/home/woods/uuv/dynamic_motion_planning/easyTrack_ws/src/cmd2airsim/se3controller/build/devel
-
-Name: se3controller
-Description: Description of se3controller
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

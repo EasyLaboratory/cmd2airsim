@@ -1,5 +1,0 @@
-<launch>
-        <node name="cmd2airsim" pkg="traj_server" type="cmd2airsim" output="screen" >
-        </node>
-
-</launch>
