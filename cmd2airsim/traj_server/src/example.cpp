@@ -114,7 +114,7 @@ void publishTrajectoryPoint(ros::Publisher& traj_pub, ros::Publisher& pose_pub, 
 
     yaw = normalizeYaw(yaw);  // Normalize yaw
 
-    point.yaw = yaw;
+    point.yaw = yaw - M_PI/2.0;
 
     traj_pub.publish(point);
 
@@ -162,7 +162,7 @@ void flyCircle1(ros::Publisher& traj_pub, ros::Publisher& pose_pub, double radiu
 
     while (ros::ok()) {
         double angle = omega * t; // 角度从0开始，确保从(0, 0)出发
-        double x = radius * (1 - cos(angle)); // 改变轨迹使其从(0, 0)出发
+        double x = radius * (1 - cos(angle)); // 改变轨迹使其从(0, 0发
         double y = radius * sin(angle);
 
         double vx = radius * omega * sin(angle);

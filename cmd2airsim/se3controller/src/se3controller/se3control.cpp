@@ -16,6 +16,7 @@ se3control::se3control() {
 void se3control::init_controller()
 {
     controller_ = std::make_shared<NonlinearGeometricControl>(attctrl_tau_);
+    // controller_ = std::make_shared<JerkTrackingControl>();
 }
 
 

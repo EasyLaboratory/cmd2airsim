@@ -77,14 +77,14 @@ void SE3ControllerNode::mainLoop(const ros::TimerEvent &event)
        
     }
 
-    std::cout<<"target_ "<<control_target_.position.x()<<"   "<<control_target_.position.y()<<
-    " yaw:"<<control_target_.yaw*180.0/M_PI<<" "<<std::endl;
+    // std::cout<<"target_ "<<control_target_.position.x()<<"   "<<control_target_.position.y()<<
+    // " yaw:"<<control_target_.yaw*180.0/M_PI<<" "<<std::endl;
 
     controller_.calculate_control(fcu_position_, fcu_velocity_, control_target_, control_cmd_);
-    
     pub_attitude_cmd(control_cmd_);
 
 }
+
 
 
 void SE3ControllerNode::pub_attitude_cmd(const mav_control::control_cmd &cmd)
@@ -94,6 +94,7 @@ void SE3ControllerNode::pub_attitude_cmd(const mav_control::control_cmd &cmd)
     double yaw_rate = cmd.body_rate_cmd[2];
     double thrust = cmd.body_rate_cmd[3];
 
+    // std::cout<<"thrust: "<<thrust<<std::endl;
     client.moveByAngleRatesThrottleAsync( pitch_rate, roll_rate, -yaw_rate, thrust, 0.01);
     // client.moveByAngleRatesThrottleAsync( roll_rate, -pitch_rate, -yaw_rate, thrust, 0.01);
 

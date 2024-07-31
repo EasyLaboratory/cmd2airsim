@@ -1,14 +1,14 @@
 <launch>
 
     <node name="se3_controller_node" pkg="se3controller" type="se3controller_ros_node" output="screen">
-        <param name="Kp_x" value="3.5" />
-        <param name="Kp_y" value="3.5" />
-        <param name="Kp_z" value="3.3" />
-        <param name="Kv_x" value="1.0" />
-        <param name="Kv_y" value="1.0" />
-        <param name="Kv_z" value="3" />
-        <param name="attctrl_tau" value="0.15" />
-        <param name="norm_thrust_const" value="0.065" />
+        <param name="Kp_x" value="5.25" />
+        <param name="Kp_y" value="5.25" />
+        <param name="Kp_z" value="4" />
+        <param name="Kv_x" value="5" />
+        <param name="Kv_y" value="5" />
+        <param name="Kv_z" value="5" />
+        <param name="attctrl_tau" value="0.32" />
+        <param name="norm_thrust_const" value="0.09" />
 
         <remap from="odometry_topic" to="/airsim_node/drone_1/odom_local_enu" />
         <remap from="position_with_yaw" to="/command/trajectory" />
@@ -18,6 +18,15 @@
 
 </launch>
 
+
+        <!-- <param name="Kp_x" value="8.6" />
+        <param name="Kp_y" value="8.6" />
+        <param name="Kp_z" value="5.5" />
+        <param name="Kv_x" value="8.6" />    5m/s
+        <param name="Kv_y" value="8.6" />
+        <param name="Kv_z" value="3" />
+        <param name="attctrl_tau" value="0.35" />
+        <param name="norm_thrust_const" value="0.065" /> -->
 
     <!-- <node name="se3_controller_node" pkg="se3controller" type="se3controller_ros_node" output="screen">
         <param name="Kp_x" value="4.5" />
