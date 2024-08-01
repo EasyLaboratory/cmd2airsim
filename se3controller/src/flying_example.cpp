@@ -115,6 +115,7 @@ void flyFigureEight(ros::Publisher& traj_pub, ros::Publisher& pose_pub, double r
 int main(int argc, char** argv) {
     ros::init(argc, argv, "trajectory_publisher");
     ros::NodeHandle n;
+    ros::NodeHandle nh("~");
 
     ros::Publisher traj_pub = n.advertise<mavros_msgs::PositionTarget>("command/trajectory", 10);
     ros::Publisher pose_pub = n.advertise<geometry_msgs::PoseStamped>("trajectory_pose", 10);
@@ -122,10 +123,10 @@ int main(int argc, char** argv) {
 
     // 读取参数
     double radius, altitude, omega, dt;
-    n.param("radius", radius, 7.0);
-    n.param("altitude", altitude, 8.0);
-    n.param("omega", omega, 1.2);
-    n.param("dt", dt, 0.02);
+    nh.param("radius", radius, 7.0);
+    nh.param("altitude", altitude, 8.0);
+    nh.param("omega", omega, 1.2);
+    nh.param("dt", dt, 0.02);
 
     // Uncomment one of the following lines to choose the flight pattern
     // flyCircle(traj_pub, pose_pub, radius, altitude, omega, dt);
