@@ -1465,20 +1465,55 @@ void AirsimROSWrapper::publish_camera_tf(const ImageResponse& img_response, cons
     cam_tf_optical_msg.transform.translation.y = cam_tf_body_msg.transform.translation.y;
     cam_tf_optical_msg.transform.translation.z = cam_tf_body_msg.transform.translation.z;
 
+
     tf2::Quaternion quat_cam_body;
     tf2::Quaternion quat_cam_optical;
     tf2::convert(cam_tf_body_msg.transform.rotation, quat_cam_body);
     tf2::Matrix3x3 mat_cam_body(quat_cam_body);
-    // tf2::Matrix3x3 mat_cam_optical = matrix_cam_body_to_optical_ * mat_cam_body * matrix_cam_body_to_optical_inverse_;
-    // tf2::Matrix3x3 mat_cam_optical = matrix_cam_body_to_optical_ * mat_cam_body;
+
+    // 如果是 ENU 坐标系，需要调整 mat_cam_body
+    if (isENU_) {
+        // 针对 ENU 坐标系，进行适当的基变换
+        tf2::Matrix3x3 enu_to_ned(0, 1, 0,
+                                1, 0, 0,
+                                0, 0, -1);
+        mat_cam_body = enu_to_ned * mat_cam_body;
+    }
+
     tf2::Matrix3x3 mat_cam_optical;
-    mat_cam_optical.setValue(mat_cam_body.getColumn(1).getX(), mat_cam_body.getColumn(2).getX(), mat_cam_body.getColumn(0).getX(), mat_cam_body.getColumn(1).getY(), mat_cam_body.getColumn(2).getY(), mat_cam_body.getColumn(0).getY(), mat_cam_body.getColumn(1).getZ(), mat_cam_body.getColumn(2).getZ(), mat_cam_body.getColumn(0).getZ());
+    mat_cam_optical.setValue(mat_cam_body.getColumn(1).getX(), mat_cam_body.getColumn(2).getX(), mat_cam_body.getColumn(0).getX(),
+                            mat_cam_body.getColumn(1).getY(), mat_cam_body.getColumn(2).getY(), mat_cam_body.getColumn(0).getY(),
+                            mat_cam_body.getColumn(1).getZ(), mat_cam_body.getColumn(2).getZ(), mat_cam_body.getColumn(0).getZ());
+
     mat_cam_optical.getRotation(quat_cam_optical);
     quat_cam_optical.normalize();
     tf2::convert(quat_cam_optical, cam_tf_optical_msg.transform.rotation);
 
+    // tf2::Quaternion quat_cam_body;
+    // tf2::Quaternion quat_cam_optical;
+    // tf2::convert(cam_tf_body_msg.transform.rotation, quat_cam_body);
+    // tf2::Matrix3x3 mat_cam_body(quat_cam_body);
+    // // tf2::Matrix3x3 mat_cam_optical = matrix_cam_body_to_optical_ * mat_cam_body * matrix_cam_body_to_optical_inverse_;
+    // // tf2::Matrix3x3 mat_cam_optical = matrix_cam_body_to_optical_ * mat_cam_body;
+    // tf2::Matrix3x3 mat_cam_optical;
+    // mat_cam_optical.setValue(mat_cam_body.getColumn(1).getX(), mat_cam_body.getColumn(2).getX(), mat_cam_body.getColumn(0).getX(), mat_cam_body.getColumn(1).getY(), mat_cam_body.getColumn(2).getY(), mat_cam_body.getColumn(0).getY(), mat_cam_body.getColumn(1).getZ(), mat_cam_body.getColumn(2).getZ(), mat_cam_body.getColumn(0).getZ());
+    // mat_cam_optical.getRotation(quat_cam_optical);
+    // quat_cam_optical.normalize();
+    // tf2::convert(quat_cam_optical, cam_tf_optical_msg.transform.rotation);
+
+
+    // if (isENU_) {
+    //     std::cout<<"   xx   "<<std::endl;
+    //     std::swap(cam_tf_optical_msg.transform.translation.x, cam_tf_optical_msg.transform.translation.y);
+    //     std::swap(cam_tf_optical_msg.transform.rotation.x, cam_tf_optical_msg.transform.rotation.y);
+    //     cam_tf_optical_msg.transform.translation.z = -cam_tf_optical_msg.transform.translation.z;
+    //     cam_tf_optical_msg.transform.rotation.z = -cam_tf_optical_msg.transform.rotation.z;
+    // }
+
     tf_broadcaster_.sendTransform(cam_tf_body_msg);
     tf_broadcaster_.sendTransform(cam_tf_optical_msg);
+
+    
 }
 
 void AirsimROSWrapper::convert_yaml_to_simple_mat(const YAML::Node& node, SimpleMatrix& m) const
