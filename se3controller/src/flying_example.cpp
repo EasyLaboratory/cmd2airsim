@@ -112,6 +112,50 @@ void flyFigureEight(ros::Publisher& traj_pub, ros::Publisher& pose_pub, double r
     }
 }
 
+void flyCircleWithAcceleration(ros::Publisher& traj_pub, ros::Publisher& pose_pub, double radius, double altitude, double omega_max, double acceleration, double dt) {
+    ros::Rate rate(1.0 / dt);  // Set the publishing frequency
+    double t = 0.0; // Initial time
+    double omega = 0.0; // Start with zero angular velocity
+
+    while (ros::ok()) {
+        // Increase omega by acceleration until it reaches omega_max
+        omega = std::min(omega_max, omega + acceleration * dt);
+
+        double angle = fmod(omega * t + M_PI / 2, 2 * M_PI); // Ensure angle is between 0 and 2π
+        double x = radius * cos(angle);
+        double y = radius * sin(angle);
+
+        double vx = -radius * sin(angle) * omega;
+        double vy = radius * cos(angle) * omega;
+        double yaw = atan2(vy, vx);
+
+        publishTrajectoryPoint(traj_pub, pose_pub, x, y, altitude, vx, vy, yaw);
+
+        t += dt; // Increase time
+        rate.sleep();
+    }
+}
+
+void flyStraightWithAcceleration(ros::Publisher& traj_pub, ros::Publisher& pose_pub, double target_speed, double acceleration, double altitude, double dt) {
+    ros::Rate rate(1.0 / dt);  // Set the publishing frequency
+    double t = 0.0; // Initial time
+    double current_speed = 0.0; // Start with zero speed
+    double x = 0.0, y = 0.0; // Start position
+
+    while (ros::ok()) {
+        // Increase current speed by acceleration until it reaches target_speed
+        current_speed = std::min(target_speed, current_speed + acceleration * dt);
+
+        y += current_speed * dt; // Update x position, assuming straight line along x-axis
+
+        double yaw = M_PI/2; // Forward direction (along x-axis)
+        publishTrajectoryPoint(traj_pub, pose_pub, x, y, altitude, 0, current_speed, yaw);
+
+        t += dt; // Increase time
+        rate.sleep();
+    }
+}
+
 int main(int argc, char** argv) {
     ros::init(argc, argv, "trajectory_publisher");
     ros::NodeHandle n;
@@ -122,15 +166,27 @@ int main(int argc, char** argv) {
 
 
     // 读取参数
-    double radius, altitude, omega, dt;
-    nh.param("radius", radius, 7.0);
-    nh.param("altitude", altitude, 8.0);
-    nh.param("omega", omega, 1.2);
-    nh.param("dt", dt, 0.02);
+    // double radius, altitude, omega, dt;
+    // nh.param("radius", radius, 7.0);
+    // nh.param("altitude", altitude, 8.0);
+    // nh.param("omega", omega, 1.2);
+    // nh.param("dt", dt, 0.02);
 
     // Uncomment one of the following lines to choose the flight pattern
     // flyCircle(traj_pub, pose_pub, radius, altitude, omega, dt);
-    flyCircle(traj_pub, pose_pub, radius, altitude, omega, dt);
+    // flyCircle(traj_pub, pose_pub, radius, altitude, omega, dt);
+
+    // Read parameters
+
+    double radius, altitude, omega_max, acceleration, dt;
+    nh.param("radius", radius, 7.0);
+    nh.param("altitude", altitude, 8.0);
+    nh.param("omega_max", omega_max, 1.2);
+    nh.param("acceleration", acceleration, 0.1);
+    nh.param("dt", dt, 0.02);
+
+    flyCircleWithAcceleration(traj_pub, pose_pub, radius, altitude, omega_max, acceleration, dt);
+    // flyStraightWithAcceleration(traj_pub, pose_pub, 10.0, acceleration,altitude, dt);
 
     return 0;
 }

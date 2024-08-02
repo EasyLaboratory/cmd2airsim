@@ -6,8 +6,14 @@
         <param name="radius" value="5.0" />
         <param name="altitude" value="8.0" />
         <param name="omega" value="1" />
+
+        <param name="acceleration" value="0.1" />
+        <param name="omega_max" value="1.5" />
+
         <param name="dt" value="0.02" />
     </node>     
+
+
 
     <!-- <node name="cmd2airsim" pkg="traj_server" type="cmd2airsim" output="screen" >
     </node> -->
