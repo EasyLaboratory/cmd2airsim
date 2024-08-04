@@ -1,0 +1,8 @@
+<launch>
+
+<node name="odom_msg2pose_msg" pkg="se3controller" type="odom_msg2pose_msg" output="screen">
+    <remap from="airsim_odom" to="/airsim_node/drone_1/odom_local_enu" />
+    <remap from="airsim_pose" to="/airsim_node/drone_1/pose_local_enu" />
+</node>
+
+</launch>

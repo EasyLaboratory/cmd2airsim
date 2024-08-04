@@ -57,7 +57,7 @@ public:
     void init_controller();
     void setParameters();
     void setProportionParams(float Kp_x,float Kp_y,float Kp_z,float Kv_x,
-    float Kv_y,float Kv_z,float attctrl_tau, float norm_thrust_const);
+    float Kv_y,float Kv_z,float attctrl_tau, float norm_thrust_const,float max_fb_acc);
     
     void setThrustConst(float norm_thrust_const);// TODO =======WOODS======
 

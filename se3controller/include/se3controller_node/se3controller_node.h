@@ -45,7 +45,8 @@ private:
     double delay_time_; // Add delay time
     double Kp_x, Kp_y, Kp_z, Kv_x, Kv_y, Kv_z;
     double attctrl_tau_,norm_thrust_const_;
-
+    double take_off_height_;
+    double max_fb_acc_;
 
 
 

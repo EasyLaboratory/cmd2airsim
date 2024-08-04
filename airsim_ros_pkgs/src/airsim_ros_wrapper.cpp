@@ -1472,18 +1472,26 @@ void AirsimROSWrapper::publish_camera_tf(const ImageResponse& img_response, cons
     tf2::Matrix3x3 mat_cam_body(quat_cam_body);
 
     // 如果是 ENU 坐标系，需要调整 mat_cam_body
+    
+    
+    tf2::Matrix3x3 mat_cam_optical;
     if (isENU_) {
-        // 针对 ENU 坐标系，进行适当的基变换
-        tf2::Matrix3x3 enu_to_ned(0, 1, 0,
-                                1, 0, 0,
-                                0, 0, -1);
-        mat_cam_body = enu_to_ned * mat_cam_body;
+
+    mat_cam_optical.setValue(
+        mat_cam_body.getColumn(0).getX(), -mat_cam_body.getColumn(2).getX(), mat_cam_body.getColumn(1).getX(),
+        mat_cam_body.getColumn(0).getY(), -mat_cam_body.getColumn(2).getY(), mat_cam_body.getColumn(1).getY(),
+        mat_cam_body.getColumn(0).getZ(), -mat_cam_body.getColumn(2).getZ(), mat_cam_body.getColumn(1).getZ()
+    );
+    
     }
 
-    tf2::Matrix3x3 mat_cam_optical;
+    else{
     mat_cam_optical.setValue(mat_cam_body.getColumn(1).getX(), mat_cam_body.getColumn(2).getX(), mat_cam_body.getColumn(0).getX(),
                             mat_cam_body.getColumn(1).getY(), mat_cam_body.getColumn(2).getY(), mat_cam_body.getColumn(0).getY(),
                             mat_cam_body.getColumn(1).getZ(), mat_cam_body.getColumn(2).getZ(), mat_cam_body.getColumn(0).getZ());
+    }
+
+
 
     mat_cam_optical.getRotation(quat_cam_optical);
     quat_cam_optical.normalize();

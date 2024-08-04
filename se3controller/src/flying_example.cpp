@@ -156,7 +156,8 @@ void flyStraightWithAcceleration(ros::Publisher& traj_pub, ros::Publisher& pose_
     }
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
     ros::init(argc, argv, "trajectory_publisher");
     ros::NodeHandle n;
     ros::NodeHandle nh("~");
@@ -184,8 +185,10 @@ int main(int argc, char** argv) {
     nh.param("omega_max", omega_max, 1.2);
     nh.param("acceleration", acceleration, 0.1);
     nh.param("dt", dt, 0.02);
+    
+    // flyCircle(traj_pub, pose_pub, radius, altitude, omega_max,  dt);
 
-    flyCircleWithAcceleration(traj_pub, pose_pub, radius, altitude, omega_max, acceleration, dt);
+    flyFigureEight(traj_pub, pose_pub, radius, altitude, omega_max, dt);
     // flyStraightWithAcceleration(traj_pub, pose_pub, 10.0, acceleration,altitude, dt);
 
     return 0;

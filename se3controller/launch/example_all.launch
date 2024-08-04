@@ -36,7 +36,7 @@
         <param name="Kv_y" value="5" />
         <param name="Kv_z" value="5" />
         <param name="attctrl_tau" value="0.32" />
-        <param name="norm_thrust_const" value="0.09" />
+        <param name="norm_thrust_const" value="0.09" />  
 
         <remap from="odometry_topic" to="/airsim_node/drone_1/odom_local_enu" />
         <remap from="position_with_yaw" to="/command/trajectory" />

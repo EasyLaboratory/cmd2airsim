@@ -85,6 +85,10 @@ target_link_libraries( se3controller_ros_node ${catkin_LIBRARIES} se3control Air
 
 
 
+add_executable(odom_msg2pose_msg  src/odom_msg2pose_msg/odom_msg2pose_msg.cpp)
+target_link_libraries(odom_msg2pose_msg ${catkin_LIBRARIES})
+
+
 add_executable( flying_example src/flying_example.cpp  )
 target_link_libraries( flying_example ${catkin_LIBRARIES} )
 

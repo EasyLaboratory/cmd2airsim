@@ -21,7 +21,8 @@ void se3control::init_controller()
 
 
 void se3control::setProportionParams(float Kp_x, float Kp_y, float Kp_z,
-                                     float Kv_x, float Kv_y, float Kv_z, float attctrl_tau, float norm_thrust_const) {
+                                     float Kv_x, float Kv_y, float Kv_z, float attctrl_tau, float norm_thrust_const,
+                                     float max_fb_acc) {
 
 
     Kpos_x_=Kp_x;
@@ -37,7 +38,7 @@ void se3control::setProportionParams(float Kp_x, float Kp_y, float Kp_z,
 
     attctrl_tau_=attctrl_tau;
     norm_thrust_const_=norm_thrust_const;
-
+    max_fb_acc_=max_fb_acc;
 }
 
 void se3control::setParameters() {
@@ -60,7 +61,7 @@ void se3control::setParameters() {
     max_fb_acc_=20;
 
     norm_thrust_const_=0.05;
-    norm_thrust_offset_=0.05;
+    norm_thrust_offset_=0.00;
     attctrl_tau_=0.5;
 }
 
@@ -145,16 +146,22 @@ Eigen::Vector3d se3control::controlPosition(const mav_control::motion_target &ta
     const Eigen::Vector3d vel_error = current_velocity_ - target.velocity;
 
 
+
     // Position Controller
     const Eigen::Vector3d a_fb = poscontroller(pos_error, vel_error);
+    
+    std::cout<<"pos_e:"<<pos_error<<std::endl;
+    std::cout<<"vel_e:"<<vel_error<<std::endl;
+    std::cout<<"a_fb: "<<a_fb<<std::endl;
 
     // Rotor Drag compensation
     const Eigen::Vector3d a_rd = R_ref * D_.asDiagonal() * R_ref.transpose() * target.velocity;  // Rotor drag
 
     // Reference acceleration
     const Eigen::Vector3d a_des = a_fb + a_ref - a_rd - gravity_;
-
-    //std::cout<<"a_des==="<<a_des<<std::endl;
+    
+    std::cout<<"a_ref==="<<a_ref<<std::endl;
+    std::cout<<"a_des==="<<a_des<<std::endl;
 
     return a_des;
 
