@@ -150,9 +150,9 @@ Eigen::Vector3d se3control::controlPosition(const mav_control::motion_target &ta
     // Position Controller
     const Eigen::Vector3d a_fb = poscontroller(pos_error, vel_error);
     
-    std::cout<<"pos_e:"<<pos_error<<std::endl;
-    std::cout<<"vel_e:"<<vel_error<<std::endl;
-    std::cout<<"a_fb: "<<a_fb<<std::endl;
+    // std::cout<<"pos_e:"<<pos_error<<std::endl;
+    // std::cout<<"vel_e:"<<vel_error<<std::endl;
+    // std::cout<<"a_fb: "<<a_fb<<std::endl;
 
     // Rotor Drag compensation
     const Eigen::Vector3d a_rd = R_ref * D_.asDiagonal() * R_ref.transpose() * target.velocity;  // Rotor drag
@@ -160,8 +160,8 @@ Eigen::Vector3d se3control::controlPosition(const mav_control::motion_target &ta
     // Reference acceleration
     const Eigen::Vector3d a_des = a_fb + a_ref - a_rd - gravity_;
     
-    std::cout<<"a_ref==="<<a_ref<<std::endl;
-    std::cout<<"a_des==="<<a_des<<std::endl;
+    // std::cout<<"a_ref==="<<a_ref<<std::endl;
+    // std::cout<<"a_des==="<<a_des<<std::endl;
 
     return a_des;
 
