@@ -116,7 +116,6 @@ void SE3ControllerNode::init_mav()
 {
     std::cout << "================init_mav=================" << std::endl;
     client.confirmConnection();
-
     client.enableApiControl(true);
     // client.armDisarm(true);
     // client.takeoffAsync(5)->waitOnLastTask();
