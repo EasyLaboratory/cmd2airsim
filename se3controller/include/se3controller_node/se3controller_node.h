@@ -10,6 +10,11 @@
 #include <vehicles/multirotor/api/MultirotorRpcLibClient.hpp>
 #include <tf/tf.h>
 
+
+
+
+
+
 class SE3ControllerNode
 {
 public:
@@ -17,6 +22,14 @@ public:
     void run();
 
 private:
+ 
+    enum FlightState {
+        TAKEOFF,       // Drone is in the process of taking off
+        HOVER,         // Drone is hovering
+        SE3CONTROL, // Drone is under feedback control
+        LANDED        
+    };
+ 
     void setControllerParams();
     void odometryCallback(const nav_msgs::Odometry::ConstPtr &msg);
     void targetCallback(const mavros_msgs::PositionTarget::ConstPtr &msg);
@@ -30,6 +43,7 @@ private:
     ros::Subscriber setpoint_raw_local_sub_;
     ros::Timer cmdloop_timer_;
 
+    FlightState flight_state_; // Current flight state
     geometry_msgs::PoseStamped fcu_position_;
     geometry_msgs::TwistStamped fcu_velocity_;
     mavros_msgs::PositionTarget target_;
@@ -46,6 +60,7 @@ private:
     double Kp_x, Kp_y, Kp_z, Kv_x, Kv_y, Kv_z;
     double attctrl_tau_,norm_thrust_const_;
     double take_off_height_;
+    double height_tolerance_=0.25;
     double max_fb_acc_;
 
 

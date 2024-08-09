@@ -43,6 +43,7 @@
 
     </node>
 
+	<node type="rviz" name="rviz" pkg="rviz" args="-d $(find se3controller)/rviz/controller.rviz" />
 </launch>
 
 

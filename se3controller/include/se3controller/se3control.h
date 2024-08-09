@@ -1,6 +1,6 @@
 
-#ifndef SE3CONTROL
-#define SE3CONTROL
+#ifndef SE3CONTROL_H
+#define SE3CONTROL_H
 
 #include <ros/ros.h>
 #include <Eigen/Dense>
@@ -12,6 +12,8 @@
 
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/TwistStamped.h"
+
+
 
 
 namespace mav_control{
@@ -84,4 +86,4 @@ public:
 };
 
 }
-#endif //SE3CONTROL
+#endif //SE3CONTROL_H

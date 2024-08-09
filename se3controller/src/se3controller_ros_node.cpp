@@ -1,7 +1,7 @@
 #include "se3controller_node/se3controller_node.h"
 
 SE3ControllerNode::SE3ControllerNode(ros::NodeHandle& nh, ros::NodeHandle& nh_private)
-    : nh_(nh), nh_private_(nh_private)
+    : nh_(nh), nh_private_(nh_private), flight_state_(TAKEOFF)
 {
     init_mav();
 
@@ -71,32 +71,86 @@ void SE3ControllerNode::targetCallback(const mavros_msgs::PositionTarget::ConstP
 }
 
 
-void SE3ControllerNode::mainLoop(const ros::TimerEvent &event)
-{
+
+// void SE3ControllerNode::mainLoop(const ros::TimerEvent &event)
+// {
+//     ros::Duration time_since_last_target = ros::Time::now() - last_target_time_;
+
+//     if (!target_received_ || time_since_last_target.toSec() > delay_time_) {
+//         // 设置默认悬停目标
+//         control_target_.position << fcu_position_.pose.position.x, fcu_position_.pose.position.y, take_off_height_;
+//         control_target_.velocity.setZero();
+//         control_target_.acceleration.setZero();
+//         control_target_.yaw =0;
+//     }
+
+//     std::cout<<"target_ "<<control_target_.position.x()<<"   "<<control_target_.position.y()<<"    "<<
+//     control_target_.position.z()<<
+//     " yaw:"<<control_target_.yaw*180.0/M_PI<<" "<<std::endl;
+
+//     // std::cout<<"vel:  "<<control_target_.velocity.x()<<"   "<<control_target_.velocity.y()<<"    "<<
+//     // control_target_.velocity.z()<<"   "<<std::endl;
+
+//     controller_.calculate_control(fcu_position_, fcu_velocity_, control_target_, control_cmd_);
+
+
+//     pub_attitude_cmd(control_cmd_);
+
+// }
+void SE3ControllerNode::mainLoop(const ros::TimerEvent &event) {
+
     ros::Duration time_since_last_target = ros::Time::now() - last_target_time_;
 
-    if (!target_received_ || time_since_last_target.toSec() > delay_time_) {
-        // 设置默认悬停目标
-        control_target_.position << fcu_position_.pose.position.x, fcu_position_.pose.position.y, take_off_height_;
-        control_target_.velocity.setZero();
-        control_target_.acceleration.setZero();
-        control_target_.yaw =0;
+    // Extract the current yaw angle from the drone's orientation
+
+    double current_yaw = tf::getYaw(fcu_position_.pose.orientation) - M_PI/2.0;  // - pi/2 cause enu yaw
+
+
+    switch (flight_state_) {
+        case TAKEOFF:
+            std::cout << "Drone is taking off." << std::endl;
+            // Set the target position to the takeoff height, maintaining the current yaw angle
+            control_target_.position << fcu_position_.pose.position.x, fcu_position_.pose.position.y, take_off_height_;
+            control_target_.velocity.setZero();
+            control_target_.acceleration.setZero();
+            control_target_.yaw = 0;
+
+            // Check if the drone has reached the desired takeoff height
+            if (fabs(fcu_position_.pose.position.z - take_off_height_) < height_tolerance_) {
+                flight_state_ = HOVER;  // Transition to hover state when takeoff is complete
+                std::cout << "=================Hovering==================" << std::endl;
+            }
+            break;
+
+        case HOVER:
+            // do nothing to control_target_ which means hovering.  by woods
+            if (target_received_==true)
+            {
+                flight_state_ = SE3CONTROL;
+                std::cout << "===============SE3CONTROL===============" << std::endl;
+            }
+            break;
+
+
+        case SE3CONTROL:
+            if (time_since_last_target.toSec() > delay_time_)
+            {
+                flight_state_ = HOVER;  
+                target_received_=false;
+                std::cout << "=================Hovering==================" << std::endl;
+            }
+            break;
+
+
+        case LANDED:
+            std::cout << "Drone is landed." << std::endl;
+            break;
+
     }
-
-    std::cout<<"target_ "<<control_target_.position.x()<<"   "<<control_target_.position.y()<<"    "<<
-    control_target_.position.z()<<
-    " yaw:"<<control_target_.yaw*180.0/M_PI<<" "<<std::endl;
-
-    // std::cout<<"vel:  "<<control_target_.velocity.x()<<"   "<<control_target_.velocity.y()<<"    "<<
-    // control_target_.velocity.z()<<"   "<<std::endl;
-
+    // std::cout<<"pub_attitude_cmdpub_attitude_cmd"<<std::endl;
     controller_.calculate_control(fcu_position_, fcu_velocity_, control_target_, control_cmd_);
-
-
     pub_attitude_cmd(control_cmd_);
-
 }
-
 
 
 void SE3ControllerNode::pub_attitude_cmd(const mav_control::control_cmd &cmd)
