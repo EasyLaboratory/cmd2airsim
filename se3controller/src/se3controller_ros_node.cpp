@@ -7,7 +7,7 @@ SE3ControllerNode::SE3ControllerNode(ros::NodeHandle& nh, ros::NodeHandle& nh_pr
 
     odom_sub_ = nh_.subscribe("odometry_topic", 1, &SE3ControllerNode::odometryCallback, this);
     setpoint_raw_local_sub_ = nh_.subscribe("position_with_yaw", 1, &SE3ControllerNode::targetCallback, this);
-    cmdloop_timer_ = nh_.createTimer(ros::Duration(0.005), &SE3ControllerNode::mainLoop, this);
+    cmdloop_timer_ = nh_.createTimer(ros::Duration(0.01), &SE3ControllerNode::mainLoop, this);
     
     setControllerParams();
     controller_.init_controller();
