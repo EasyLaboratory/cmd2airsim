@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -Wall -Wextra -Wpedantic -Wstrict-null-sentinel -Wno-unused -g  -shared -Wl,-soname,libgtest_maind.so -o ../lib/libgtest_maind.so CMakeFiles/gtest_main.dir/src/gtest_main.cc.o  -Wl,-rpath,/home/easylab/easyLab/easyTrack/src/cmd2airsim/easysim_ros_wrapper/build/gtest/lib ../lib/libgtestd.so -lpthread 

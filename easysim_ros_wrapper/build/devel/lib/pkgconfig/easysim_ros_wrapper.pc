@@ -1,8 +1,0 @@
-prefix=/home/easylab/easyLab/easyTrack/src/cmd2airsim/easysim_ros_wrapper/build/devel
-
-Name: easysim_ros_wrapper
-Description: Description of easysim_ros_wrapper
-Version: 0.0.1
-Cflags: -I/home/easylab/easyLab/easyTrack/src/cmd2airsim/easysim_ros_wrapper/include
-Libs: -L${prefix}/lib 
-Requires: roscpp std_msgs

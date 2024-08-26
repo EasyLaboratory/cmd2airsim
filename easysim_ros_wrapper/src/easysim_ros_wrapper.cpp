@@ -9,7 +9,7 @@ EasySimRosWrapper::EasySimRosWrapper(ros::NodeHandle& nh, ros::NodeHandle& nh_pr
     std::cout<<"ip port"<<ip_address<<" "<<port<<std::endl;
 
     easytrack_client_ = std::make_shared<msr::airlib::easyTrackRpcClient>(ip_address, port);
-
+    odom_pub_ = nh_private_.advertise<nav_msgs::Odometry>("player_odom", 10);
     position_pub_ = nh_private_.advertise<geometry_msgs::PointStamped>("player_position", 10);
     timer_ = nh_private_.createTimer(ros::Duration(timer_duration), &EasySimRosWrapper::timerCallback, this);
 
@@ -43,32 +43,62 @@ void EasySimRosWrapper::start()
     ros::spin();
 }
 
-
 void EasySimRosWrapper::timerCallback(const ros::TimerEvent& event)
 {
-    try {
-        Eigen::Vector3f player_position = easytrack_client_->getPlayerPosition(1) / 100.0;
+    // Retrieve player position
+    Eigen::Vector3f player_position = easytrack_client_->getPlayerPosition(1) / 100.0;
 
-        // Convert to ENU frame if needed
-        if (coordinate_frame == "world_enu") {
-            player_position = worldToENU(player_position);
-        }
-    
-        geometry_msgs::PointStamped msg;
-        msg.header.frame_id = coordinate_frame;
-        msg.header.stamp = ros::Time::now();
-        msg.point.x = player_position.x();
-        msg.point.y = player_position.y();
-        msg.point.z = player_position.z();
-
-        position_pub_.publish(msg);
-
-    } catch (const std::exception& e) {
-
-        ROS_ERROR("Error: %s", e.what());
-
+    // Convert to ENU frame if needed
+    if (coordinate_frame == "world_enu") {
+        player_position = worldToENU(player_position);
     }
+
+    // Get the current time
+    ros::Time current_time = ros::Time::now();
+    Eigen::Vector3f linear_velocity(0.0, 0.0, 0.0);
+
+    if (!first_frame_) {
+        // Calculate time difference
+        double dt = (current_time - previous_time_).toSec();
+
+        // Define a threshold for the maximum allowed time difference
+        double max_time_difference = 1.0; // 1 second, adjust as needed
+
+        if (dt > 0 && dt < max_time_difference) {
+            // Calculate velocity if the time difference is within the acceptable range
+            linear_velocity = (player_position - previous_position_) / dt;
+        } else {
+            // If the time difference is too large, treat this as a new frame and reset velocity
+            linear_velocity = Eigen::Vector3f(0.0, 0.0, 0.0);
+            // first_frame_=true;
+        }
+    } else {
+        // Mark that the first frame has been processed
+        first_frame_ = false;
+    }
+
+
+
+
+    // Update the previous position and time for the next callback
+    previous_position_ = player_position;
+    previous_time_ = current_time;
+
+    // Create and publish the Odometry message
+    nav_msgs::Odometry odom_msg;
+    odom_msg.header.stamp = current_time;
+    odom_msg.header.frame_id = coordinate_frame;
+    odom_msg.pose.pose.position.x = player_position.x();
+    odom_msg.pose.pose.position.y = player_position.y();
+    odom_msg.pose.pose.position.z = player_position.z();
+    
+    odom_msg.twist.twist.linear.x = linear_velocity.x();
+    odom_msg.twist.twist.linear.y = linear_velocity.y();
+    odom_msg.twist.twist.linear.z = linear_velocity.z();
+
+    odom_pub_.publish(odom_msg);
 }
+
 
 Eigen::Vector3f EasySimRosWrapper::worldToENU(const Eigen::Vector3f& world_position)
 {

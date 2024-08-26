@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -Wall -Wextra -Wpedantic -Wstrict-null-sentinel -Wno-unused -g  -shared -Wl,-soname,libgmock_maind.so -o ../lib/libgmock_maind.so CMakeFiles/gmock_main.dir/src/gmock_main.cc.o  -Wl,-rpath,/home/easylab/easyLab/easyTrack/src/cmd2airsim/easysim_ros_wrapper/build/gtest/lib ../lib/libgmockd.so ../lib/libgtestd.so -lpthread 

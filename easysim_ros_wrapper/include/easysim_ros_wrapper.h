@@ -5,6 +5,7 @@
 #include <ros/ros.h>
 #include <geometry_msgs/PointStamped.h>
 #include <memory>
+#include "nav_msgs/Odometry.h"
 
 class EasySimRosWrapper
 {
@@ -23,7 +24,7 @@ private:
 
     std::shared_ptr<msr::airlib::easyTrackRpcClient> easytrack_client_;
 
-
+    ros::Publisher odom_pub_;
     ros::Publisher position_pub_;
     ros::Timer timer_;
     ros::NodeHandle nh_private_;
@@ -33,6 +34,10 @@ private:
     uint16_t port;
     double timer_duration;
     std::string coordinate_frame;
+
+    Eigen::Vector3f previous_position_;
+    ros::Time previous_time_;
+    bool first_frame_=true;
 
 };
 
