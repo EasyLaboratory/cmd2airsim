@@ -1,0 +1,8 @@
+<launch>
+    <node name="easysim_ros_wrapper" pkg="easysim_ros_wrapper" type="easysim_ros_node" output="screen">
+        <param name="ip_address" value="127.0.0.1"/>
+        <param name="port" value="50502"/>
+        <param name="timer_duration" value="0.01"/>
+        <param name="coordinate_frame" value="world_enu"/>
+    </node>
+</launch>

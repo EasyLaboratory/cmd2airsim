@@ -34,6 +34,7 @@ set(RPC_LIB rpc) # name of .a file with lib prefix
 
 
 
+set(CMAKE_CXX_STANDARD 17)
 
 catkin_package(
 #  INCLUDE_DIRS include

@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: easysim_ros_wrapper
+Description: Description of easysim_ros_wrapper
+Version: 0.0.1
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs

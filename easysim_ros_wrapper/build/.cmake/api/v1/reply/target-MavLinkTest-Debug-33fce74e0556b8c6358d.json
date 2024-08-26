@@ -1,0 +1,163 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "output/bin/MavLinkTest"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"/home/easylab/easyLab/easyTrack/src/cmd2airsim/thirdparty/cmake/MavLinkCom/MavLinkTest/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 18,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "                -Wall -Wextra                 -Wnon-virtual-dtor -Woverloaded-virtual                 -Wno-variadic-macros -Wno-unused-function -Wno-unused                 -pthread                 -D MSGPACK_PP_VARIADICS_MSVC=0  -g -fPIE  "
+				},
+				{
+					"fragment" : "-std=gnu++17"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "/home/easylab/easyLab/easyTrack/src/cmd2airsim/easysim_ros_wrapper/../thirdparty/MavLinkCom/MavLinkTest"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/easylab/easyLab/easyTrack/src/cmd2airsim/easysim_ros_wrapper/../thirdparty/MavLinkCom/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/easylab/easyLab/easyTrack/src/cmd2airsim/easysim_ros_wrapper/../thirdparty/MavLinkCom/common_utils"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "MavLinkCom::@ac97f9716721fae80439"
+		}
+	],
+	"id" : "MavLinkTest::@01670ce0b2cd3086880d",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-Wall -Wextra                 -Wnon-virtual-dtor -Woverloaded-virtual                 -Wno-variadic-macros -Wno-unused-function -Wno-unused                 -pthread                 -D MSGPACK_PP_VARIADICS_MSVC=0  -g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-rdynamic",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "../../output/lib/libMavLinkCom.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lstdc++fs -fmax-errors=10 -Wnoexcept -Wstrict-null-sentinel",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "MavLinkTest",
+	"nameOnDisk" : "MavLinkTest",
+	"paths" : 
+	{
+		"build" : "MavLinkCom/MavLinkTest",
+		"source" : "/home/easylab/easyLab/easyTrack/src/cmd2airsim/thirdparty/cmake/MavLinkCom/MavLinkTest"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/home/easylab/easyLab/easyTrack/src/cmd2airsim/thirdparty/MavLinkCom/MavLinkTest/Commands.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/home/easylab/easyLab/easyTrack/src/cmd2airsim/thirdparty/MavLinkCom/MavLinkTest/UnitTests.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "/home/easylab/easyLab/easyTrack/src/cmd2airsim/thirdparty/MavLinkCom/MavLinkTest/main.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

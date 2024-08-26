@@ -15,14 +15,12 @@ namespace simple_flight
 class OffboardApi : public IUpdatable
     , public IOffboardApi
 {
-
 public:
     OffboardApi(const Params* params, const IBoardClock* clock, const IBoardInputPins* board_inputs,
                 IStateEstimator* state_estimator, ICommLink* comm_link)
         : params_(params), rc_(params, clock, board_inputs, &vehicle_state_, state_estimator, comm_link), state_estimator_(state_estimator), comm_link_(comm_link), clock_(clock), landed_(true)
     {
     }
-
 
     virtual void reset() override
     {
@@ -37,17 +35,13 @@ public:
         updateGoalFromRc();
     }
 
-
     virtual void update() override
     {
         IUpdatable::update();
 
         rc_.update();
-        
         if (!has_api_control_)
-
             updateGoalFromRc();
-
         else {
             if (takenoff_ &&
                 (clock_->millis() - goal_timestamp_ > params_->api_goal_timeout)) {

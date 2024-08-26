@@ -32,7 +32,6 @@ public:
         request_duration_ = 0;
     }
 
-
     virtual void update() override
     {
         IUpdatable::update();
@@ -73,7 +72,6 @@ public:
                     request_duration_ = 0;
                 }
             }
-
             //else ignore
             break;
         case VehicleStateType::BeingArmed:
@@ -96,7 +94,6 @@ public:
             }
             //else ignore
             break;
-            
         case VehicleStateType::Armed:
             //unless disarm is being requested, set goal from stick position
             if (rc_action == RcRequestType::DisarmRequest) {
