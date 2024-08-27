@@ -25,6 +25,14 @@
 	<include file="$(find airsim_ros_pkgs)/launch/static_transforms.launch"/>
 	<!--============================= Airsim ros noed============================= -->
 
+    <node name="easysim_ros_wrapper" pkg="easysim_ros_wrapper" type="easysim_ros_node" output="screen">
+        <param name="ip_address" value="127.0.0.1"/>
+        <param name="port" value="50502"/>
+        <param name="timer_duration" value="0.01"/>
+        <param name="coordinate_frame" value="world_enu"/>
+    </node>
+
+
 
     <node name="se3_controller_node" pkg="se3controller" type="se3controller_ros_node" output="screen">
         <param name="Kp_x" value="3" />
