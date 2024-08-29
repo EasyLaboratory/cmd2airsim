@@ -62,7 +62,7 @@ void flyCircle(ros::Publisher& traj_pub, ros::Publisher& pose_pub, double radius
 
         double vx = -radius * sin(angle) * omega;
         double vy = radius * cos(angle) * omega;
-        double yaw = atan2(vy, vx);
+        double yaw = atan2(vy, vx)+M_PI/2;
 
         publishTrajectoryPoint(traj_pub, pose_pub, x, y, altitude, vx, vy, yaw);
 
@@ -82,7 +82,7 @@ void flyCircle1(ros::Publisher& traj_pub, ros::Publisher& pose_pub, double radiu
 
         double vx = radius * omega * sin(angle);
         double vy = radius * omega * cos(angle);
-        double yaw = atan2(vy, vx);
+        double yaw = atan2(vy, vx)+M_PI/2;
 
         publishTrajectoryPoint(traj_pub, pose_pub, x, y, altitude, vx, vy, yaw);
 
@@ -186,9 +186,9 @@ int main(int argc, char** argv)
     nh.param("acceleration", acceleration, 0.1);
     nh.param("dt", dt, 0.02);
     
-    // flyCircle(traj_pub, pose_pub, radius, altitude, omega_max,  dt);
+    flyCircle(traj_pub, pose_pub, radius, altitude, omega_max,  dt);
 
-    flyFigureEight(traj_pub, pose_pub, radius, altitude, omega_max, dt);
+    // flyFigureEight(traj_pub, pose_pub, radius, altitude, omega_max, dt);
     // flyStraightWithAcceleration(traj_pub, pose_pub, 10.0, acceleration,altitude, dt);
 
     return 0;
