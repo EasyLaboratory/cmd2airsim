@@ -1,0 +1,6 @@
+<launch>
+    
+    <node pkg="easysim_ros_wrapper" type="image_ros_wrapper" name="image_ros_wrapper" output="screen">
+    </node>
+
+</launch>

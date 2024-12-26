@@ -32,6 +32,9 @@
         <param name="coordinate_frame" value="world_enu"/>
     </node>
 
+    <node pkg="easysim_ros_wrapper" type="image_ros_wrapper" name="image_ros_wrapper" output="screen">
+    </node>
+
 
 
     <node name="se3_controller_node" pkg="se3controller" type="se3controller_ros_node" output="screen">

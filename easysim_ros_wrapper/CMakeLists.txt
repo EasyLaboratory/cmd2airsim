@@ -32,6 +32,10 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   geometry_msgs
+  tf
+  cv_bridge
+  image_transport
+  sensor_msgs
 )
 
 
@@ -50,6 +54,7 @@ include_directories(
   ${AIRSIM_ROOT}/MavLinkCom/include
   ${AIRSIM_ROOT}/MavLinkCom/common_utils
   ${Boost_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 add_library(easysim_ros_wrapper 
@@ -68,3 +73,17 @@ target_link_libraries(easysim_ros_node
   AirLib
   easysim_ros_wrapper
 )
+
+
+add_library(image_udp_receiver src/image_udp_receiver.cpp)
+target_link_libraries(image_udp_receiver
+  ${catkin_LIBRARIES} 
+  ${Boost_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
+
+add_executable(image_ros_wrapper src/image_ros_wrapper.cpp)
+target_link_libraries(image_ros_wrapper
+  image_udp_receiver
+)
+
