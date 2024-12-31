@@ -123,7 +123,7 @@ void SE3ControllerNode::mainLoop(const ros::TimerEvent &event) {
 
     switch (flight_state_) {
         case TAKEOFF:
-            std::cout << "Drone is taking off." << std::endl;
+            // std::cout << "Drone is taking off." << std::endl;
             // Set the target position to the takeoff height, maintaining the current yaw angle
             control_target_.position << fcu_position_.pose.position.x, fcu_position_.pose.position.y, take_off_height_;
             control_target_.velocity.setZero();

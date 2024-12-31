@@ -709,6 +709,19 @@ nav_msgs::Odometry AirsimROSWrapper::get_odom_msg_from_multirotor_state(const ms
     odom_msg.twist.twist.angular.x = drone_state.kinematics_estimated.twist.angular.x();
     odom_msg.twist.twist.angular.y = drone_state.kinematics_estimated.twist.angular.y();
     odom_msg.twist.twist.angular.z = drone_state.kinematics_estimated.twist.angular.z();
+        // Extract the quaternion
+    // tf2::Quaternion quat(
+    //     odom_msg.pose.pose.orientation.x,
+    //     odom_msg.pose.pose.orientation.y,
+    //     odom_msg.pose.pose.orientation.z,
+    //     odom_msg.pose.pose.orientation.w);
+
+    // // Convert quaternion to RPY
+    // double roll, pitch, yaw;
+    // tf2::Matrix3x3(quat).getRPY(roll, pitch, yaw);
+
+    // // Print the RPY values
+    // std::cout << "Roll: " << roll << " Pitch: " << pitch << " Yaw: " << yaw << std::endl;
 
     if (isENU_) {
         std::swap(odom_msg.pose.pose.position.x, odom_msg.pose.pose.position.y);
@@ -720,6 +733,8 @@ nav_msgs::Odometry AirsimROSWrapper::get_odom_msg_from_multirotor_state(const ms
         std::swap(odom_msg.twist.twist.angular.x, odom_msg.twist.twist.angular.y);
         odom_msg.twist.twist.angular.z = -odom_msg.twist.twist.angular.z;
     }
+
+
 
     return odom_msg;
 }
@@ -1220,7 +1235,15 @@ void AirsimROSWrapper::append_static_vehicle_tf(VehicleROS* vehicle_ros, const V
     vehicle_tf_msg.transform.translation.y = vehicle_setting.position.y();
     vehicle_tf_msg.transform.translation.z = vehicle_setting.position.z();
     tf2::Quaternion quat;
-    quat.setRPY(vehicle_setting.rotation.roll, vehicle_setting.rotation.pitch, vehicle_setting.rotation.yaw);
+
+    // ===============woods=============== micosfort forgot trun degrees to radians
+    double roll_radians = vehicle_setting.rotation.roll * M_PI / 180.0;
+    double pitch_radians = vehicle_setting.rotation.pitch * M_PI / 180.0;
+    double yaw_radians = vehicle_setting.rotation.yaw * M_PI / 180.0;
+
+    // quat.setRPY(roll_radians, pitch_radians, yaw_radians);
+    quat.setRPY(0, 0, 0);
+
     vehicle_tf_msg.transform.rotation.x = quat.x();
     vehicle_tf_msg.transform.rotation.y = quat.y();
     vehicle_tf_msg.transform.rotation.z = quat.z();

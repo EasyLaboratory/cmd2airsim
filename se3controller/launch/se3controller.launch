@@ -3,7 +3,7 @@
 
 	<!--============================= Airsim ros noed============================= -->
 
-	<arg name="output" default="log"/>
+	<arg name="output" default="screen"/>
 	<arg name="publish_clock" default="false"/>
 	<arg name="is_vulkan" default="true"/>
 	<arg name="host" default="localhost" />
