@@ -103,8 +103,23 @@ void SE3ControllerNode::mainLoop(const ros::TimerEvent &event) {
 
     // Extract the current yaw angle from the drone's orientation
 
-    double current_yaw = tf::getYaw(fcu_position_.pose.orientation) - M_PI/2.0;  // - pi/2 cause enu yaw
+    // double current_yaw = tf::getYaw(fcu_position_.pose.orientation)- M_PI/2;  // - pi/2 cause enu yaw
 
+    tf::Quaternion q(fcu_position_.pose.orientation.x,
+                    fcu_position_.pose.orientation.y,
+                    fcu_position_.pose.orientation.z,
+                    fcu_position_.pose.orientation.w);
+
+    // 检查四元数是否标准化
+    if (std::abs(q.length() - 1.0) > 1e-3) {
+        ROS_WARN("Quaternion Not Properly Normalized: length = %f", q.length());
+        return; // 跳过当前帧
+    }
+
+    // 获取航向角
+    double current_yaw = tf::getYaw(q) ;
+
+    // std::cout<<"current_yaw"<<current_yaw<<std::endl;
 
     switch (flight_state_) {
         case TAKEOFF:
@@ -113,7 +128,7 @@ void SE3ControllerNode::mainLoop(const ros::TimerEvent &event) {
             control_target_.position << fcu_position_.pose.position.x, fcu_position_.pose.position.y, take_off_height_;
             control_target_.velocity.setZero();
             control_target_.acceleration.setZero();
-            control_target_.yaw = 0;
+            control_target_.yaw = current_yaw;
 
             // Check if the drone has reached the desired takeoff height
             if (fabs(fcu_position_.pose.position.z - take_off_height_) < height_tolerance_) {
@@ -171,8 +186,8 @@ void SE3ControllerNode::init_mav()
     std::cout << "================init_mav=================" << std::endl;
     client.confirmConnection();
     client.enableApiControl(true);
-    // client.armDisarm(true);
-    // client.takeoffAsync(5)->waitOnLastTask();
+    client.armDisarm(true);
+    client.takeoffAsync()->waitOnLastTask();
 }
 
 void SE3ControllerNode::run()

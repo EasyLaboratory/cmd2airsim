@@ -1,6 +1,6 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 138
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
@@ -9,8 +9,10 @@ Panels:
         - /Pose1
         - /Odometry1
         - /Odometry1/Shape1
+        - /Odometry2
+        - /Axes1
       Splitter Ratio: 0.5
-    Tree Height: 534
+    Tree Height: 672
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -28,7 +30,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: Image
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -61,22 +63,6 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        camera_1_body:
-          Value: true
-        camera_1_body/static:
-          Value: true
-        camera_1_optical:
-          Value: true
-        camera_1_optical/static:
-          Value: true
-        camera_2_body:
-          Value: true
-        camera_2_body/static:
-          Value: true
-        camera_2_optical:
-          Value: true
-        camera_2_optical/static:
-          Value: true
         drone_1:
           Value: true
         drone_1/odom_local_enu:
@@ -95,23 +81,8 @@ Visualization Manager:
         world_ned:
           world_enu:
             drone_1:
-              camera_1_body:
-                {}
-              camera_1_optical:
-                {}
-              camera_2_body:
-                {}
-              camera_2_optical:
-                {}
               drone_1/odom_local_enu:
-                camera_1_body/static:
-                  {}
-                camera_1_optical/static:
-                  {}
-                camera_2_body/static:
-                  {}
-                camera_2_optical/static:
-                  {}
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -154,7 +125,7 @@ Visualization Manager:
       Queue Size: 10
       Shape:
         Alpha: 1
-        Axes Length: 1
+        Axes Length: 5
         Axes Radius: 0.10000000149011612
         Color: 255; 25; 0
         Head Length: 0.5
@@ -162,7 +133,7 @@ Visualization Manager:
         Shaft Length: 0.25
         Shaft Radius: 0.10000000149011612
         Value: Axes
-      Topic: /airsim_node/drone_1/odom_local_enu
+      Topic: /easysim_ros_wrapper/player_odom
       Unreliable: false
       Value: true
     - Class: rviz/Image
@@ -188,6 +159,50 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Queue Size: 10
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Axes
+      Topic: /airsim_node/drone_1/odom_local_enu
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 1
+      Name: Axes
+      Radius: 0.10000000149011612
+      Reference Frame: world_enu
+      Show Trail: false
       Value: true
   Enabled: true
   Global Options:
@@ -216,8 +231,8 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 34.8176155090332
+      Class: rviz/ThirdPersonFollower
+      Distance: 6.449298858642578
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -225,17 +240,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.7969655990600586
-        Y: 3.348238945007324
-        Z: 6.542020320892334
+        X: -0.1368933916091919
+        Y: -0.39333271980285645
+        Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9504000544548035
+      Pitch: 1.3747965097427368
       Target Frame: <Fixed Frame>
-      Yaw: 4.584429740905762
+      Yaw: 4.624429225921631
     Saved: ~
 Window Geometry:
   Displays:
