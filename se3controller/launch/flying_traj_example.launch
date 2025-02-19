@@ -1,0 +1,30 @@
+<launch>
+
+
+
+    <node name="flying_traj_example" pkg="se3controller" type="flying_traj_example" output="screen">
+        <!-- 普通参数 -->
+        <param name="radius" value="8.0" />
+        <param name="altitude" value="8.0" />
+        <param name="acceleration" value="0.1" />
+        <param name="omega_max" value="1" />
+        <param name="dt" value="0.02" />
+
+        <param name="omega_x" value="1.2" />
+        <param name="omega_y" value="1.5" />
+
+        <!-- 新增的参数，用于控制选择轨迹类型 -->
+        <!-- <param name="trajectory_type" value="circle" />  -->
+        <param name="trajectory_type" value="circle" /> <!-- 或者 "circle" -->
+
+
+    </node>
+
+
+
+    <node name="traj_server" pkg="traj_server" type="traj_server" output="screen" >
+        <remap from="input_trajectory_topic" to="/command/trajectory" />
+        <remap from="cmd2controller" to="command/position_target" />
+    </node>
+
+</launch>

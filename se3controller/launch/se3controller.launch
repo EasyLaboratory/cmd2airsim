@@ -50,7 +50,7 @@
         <param name="take_off_height" value="8" />
 
         <remap from="odometry_topic" to="/airsim_node/drone_1/odom_local_enu" />
-        <remap from="position_with_yaw" to="/command/trajectory" />
+        <remap from="position_with_yaw" to="/command/position_target" />
 
     </node>
     
@@ -59,40 +59,19 @@
 </launch>
 
 
-        <!-- <param name="Kp_x" value="8.6" />
-        <param name="Kp_y" value="8.6" />
-        <param name="Kp_z" value="5.5" />
-        <param name="Kv_x" value="8.6" />    5m/s
-        <param name="Kv_y" value="8.6" />
-        <param name="Kv_z" value="3" />
-        <param name="attctrl_tau" value="0.35" />
-        <param name="norm_thrust_const" value="0.0605" /> -->
-
     <!-- <node name="se3_controller_node" pkg="se3controller" type="se3controller_ros_node" output="screen">
-        <param name="Kp_x" value="4.5" />
-        <param name="Kp_y" value="4.5" />
-        <param name="Kp_z" value="3.3" />
-        <param name="Kv_x" value="2.5" />
-        <param name="Kv_y" value="2.5" />
-        <param name="Kv_z" value="2.25" />
-        <param name="attctrl_tau" value="0.3" />
-
-        
-        <remap from="odometry_topic" to="/airsim_node/drone_1/odom_local_enu" />
-        <remap from="position_with_yaw" to="/command/trajectory" />
-    </node> -->
-
-        <!-- <node name="se3_controller_node" pkg="se3controller" type="se3controller_ros_node" output="screen">
-        <param name="Kp_x" value="12.0" />
-        <param name="Kp_y" value="12.0" />
-        <param name="Kp_z" value="8.3" />
-        <param name="Kv_x" value="3.0" />
-        <param name="Kv_y" value="3.0" />
-        <param name="Kv_z" value="4.0" />
-        <param name="attctrl_tau" value="0.3" />
-        <param name="norm_thrust_const" value="0.065" />
+        <param name="Kp_x" value="3" />
+        <param name="Kp_y" value="3" />
+        <param name="Kp_z" value="2.2" />
+        <param name="Kv_x" value="2" />
+        <param name="Kv_y" value="2" />
+        <param name="Kv_z" value="1.5" />
+        <param name="attctrl_tau" value="0.35" />
+        <param name="norm_thrust_const" value="0.0605" />
+        <param name="max_fb_acc" value="30" />  
+        <param name="take_off_height" value="8" />
 
         <remap from="odometry_topic" to="/airsim_node/drone_1/odom_local_enu" />
-        <remap from="position_with_yaw" to="/command/trajectory" />
+        <remap from="position_with_yaw" to="/command/position_target" />
 
     </node> -->

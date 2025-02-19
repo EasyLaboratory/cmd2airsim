@@ -62,6 +62,7 @@
         "memory_resource": "cpp",
         "set": "cpp",
         "cinttypes": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "typeindex": "cpp"
     }
 }
