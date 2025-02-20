@@ -71,32 +71,6 @@ void SE3ControllerNode::targetCallback(const mavros_msgs::PositionTarget::ConstP
 }
 
 
-
-// void SE3ControllerNode::mainLoop(const ros::TimerEvent &event)
-// {
-//     ros::Duration time_since_last_target = ros::Time::now() - last_target_time_;
-
-//     if (!target_received_ || time_since_last_target.toSec() > delay_time_) {
-//         // 设置默认悬停目标
-//         control_target_.position << fcu_position_.pose.position.x, fcu_position_.pose.position.y, take_off_height_;
-//         control_target_.velocity.setZero();
-//         control_target_.acceleration.setZero();
-//         control_target_.yaw =0;
-//     }
-
-//     std::cout<<"target_ "<<control_target_.position.x()<<"   "<<control_target_.position.y()<<"    "<<
-//     control_target_.position.z()<<
-//     " yaw:"<<control_target_.yaw*180.0/M_PI<<" "<<std::endl;
-
-//     // std::cout<<"vel:  "<<control_target_.velocity.x()<<"   "<<control_target_.velocity.y()<<"    "<<
-//     // control_target_.velocity.z()<<"   "<<std::endl;
-
-//     controller_.calculate_control(fcu_position_, fcu_velocity_, control_target_, control_cmd_);
-
-
-//     pub_attitude_cmd(control_cmd_);
-
-// }
 void SE3ControllerNode::mainLoop(const ros::TimerEvent &event) {
 
     ros::Duration time_since_last_target = ros::Time::now() - last_target_time_;
@@ -175,6 +149,7 @@ void SE3ControllerNode::pub_attitude_cmd(const mav_control::control_cmd &cmd)
     double yaw_rate = cmd.body_rate_cmd[2];
     double thrust = cmd.body_rate_cmd[3];
 
+    // std::cout<<"==============thrust=========="<<thrust<<std::endl;
     // std::cout<<"thrust: "<<thrust<<std::endl;
     client.moveByAngleRatesThrottleAsync( pitch_rate, roll_rate, -yaw_rate, thrust, 0.01);
     // client.moveByAngleRatesThrottleAsync( roll_rate, -pitch_rate, -yaw_rate, thrust, 0.01);

@@ -4,10 +4,10 @@
 
     <node name="flying_traj_example" pkg="se3controller" type="flying_traj_example" output="screen">
         <!-- 普通参数 -->
-        <param name="radius" value="8.0" />
+        <param name="radius" value="15.0" />
         <param name="altitude" value="8.0" />
         <param name="acceleration" value="0.1" />
-        <param name="omega_max" value="1" />
+        <param name="omega_max" value="1.5" />
         <param name="dt" value="0.02" />
 
         <param name="omega_x" value="1.2" />

@@ -25,7 +25,7 @@
 	<include file="$(find airsim_ros_pkgs)/launch/static_transforms.launch"/>
 	<!--============================= Airsim ros noed============================= -->
 
-    <node name="easysim_ros_wrapper" pkg="easysim_ros_wrapper" type="easysim_ros_node" output="screen">
+    <!-- <node name="easysim_ros_wrapper" pkg="easysim_ros_wrapper" type="easysim_ros_node" output="screen">
         <param name="ip_address" value="127.0.0.1"/>
         <param name="port" value="50502"/>
         <param name="timer_duration" value="0.01"/>
@@ -34,19 +34,20 @@
 
     <node pkg="easysim_ros_wrapper" type="image_ros_wrapper" name="image_ros_wrapper" output="screen">
     </node>
-
+ -->
 
 
     <node name="se3_controller_node" pkg="se3controller" type="se3controller_ros_node" output="screen">
-        <param name="Kp_x" value="3" />
-        <param name="Kp_y" value="3" />
-        <param name="Kp_z" value="2.2" />
+       
+        <param name="Kp_x" value="2" />
+        <param name="Kp_y" value="2" />
+        <param name="Kp_z" value="0.85" />
         <param name="Kv_x" value="2" />
         <param name="Kv_y" value="2" />
-        <param name="Kv_z" value="1.5" />
+        <param name="Kv_z" value="0.85" />
         <param name="attctrl_tau" value="0.35" />
-        <param name="norm_thrust_const" value="0.0605" />
-        <param name="max_fb_acc" value="30" />  
+        <param name="norm_thrust_const" value="0.01725" />
+        <param name="max_fb_acc" value="40" />  
         <param name="take_off_height" value="8" />
 
         <remap from="odometry_topic" to="/airsim_node/drone_1/odom_local_enu" />
