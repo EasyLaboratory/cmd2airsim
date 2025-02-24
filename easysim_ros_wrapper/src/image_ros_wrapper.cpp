@@ -55,7 +55,7 @@ int main(int argc, char** argv)
     image_transport::Publisher depth_pub = it.advertise("camera/depth/image", 1);
 
     // 创建UdpReceiver对象，接收RGB图像数据
-    UdpReceiver rgb_receiver(50503);  // RGB数据的端口
+    UdpReceiver rgb_receiver(50506);  // RGB数据的端口
     UdpReceiver depth_receiver(50504);  // Depth数据的端口
 
     

@@ -330,9 +330,9 @@ visualization_msgs::Marker createMarker(double x, double y, double altitude, dou
     marker.pose.orientation.z = q.z();
     marker.pose.orientation.w = q.w();
 
-    marker.scale.x = 0.2; // Arrow length
-    marker.scale.y = 0.05; // Arrow width
-    marker.scale.z = 0.05; // Arrow height
+    marker.scale.x = 1.0; // Arrow length
+    marker.scale.y = 0.5; // Arrow width
+    marker.scale.z = 0.5; // Arrow height
     marker.color.a = 1.0;  // Opacity
     marker.color.r = 0.0;  // Red
     marker.color.g = 0.0;  // Green

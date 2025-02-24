@@ -47,15 +47,19 @@
         <param name="Kv_z" value="0.85" />
         <param name="attctrl_tau" value="0.35" />
         <param name="norm_thrust_const" value="0.01725" />
-        <param name="max_fb_acc" value="40" />  
+        <param name="max_fb_acc" value="50" />  
         <param name="take_off_height" value="8" />
 
         <remap from="odometry_topic" to="/airsim_node/drone_1/odom_local_enu" />
         <remap from="position_with_yaw" to="/command/position_target" />
 
     </node>
-    
-	<!-- <node type="rviz" name="rviz" pkg="rviz" args="-d $(find se3controller)/rviz/controller.rviz" /> -->
+
+    <node name="traj_server" pkg="traj_server" type="traj_server" output="screen" >
+        <remap from="input_trajectory_topic" to="/command/trajectory" />
+        <remap from="cmd2controller" to="command/position_target" />
+    </node>
+
 
 </launch>
 

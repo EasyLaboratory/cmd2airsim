@@ -101,9 +101,9 @@ visualization_msgs::Marker create_marker(const traj_msgs::TrajectoryPoint& point
     marker.type = visualization_msgs::Marker::ARROW;
     marker.action = visualization_msgs::Marker::ADD;
     marker.pose = point.pose;
-    marker.scale.x = 1;  // Arrow length
-    marker.scale.y = 0.3;  // Arrow width
-    marker.scale.z = 0.3;  // Arrow height
+    marker.scale.x = 2;  // Arrow length
+    marker.scale.y = 0.9;  // Arrow width
+    marker.scale.z = 0.9;  // Arrow height
     marker.color.a = 1.0;  // Opacity
     marker.color.r = 0.0;  // Red
     marker.color.g = 1.0;  // Green

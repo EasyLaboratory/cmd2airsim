@@ -15,11 +15,13 @@ UdpReceiver::UdpReceiver(uint16_t port) : sockfd(-1), port(port) {
     setup_socket();
 }
 
+
 UdpReceiver::~UdpReceiver() {
     if (sockfd >= 0) {
         close(sockfd);
     }
 }
+
 
 bool UdpReceiver::receive_data(std::vector<uint8_t>& out_image_data, ImageMetaData& out_metadata) {
     char buffer[UDP_MTU * 200];  // 假设最大接收200个包
