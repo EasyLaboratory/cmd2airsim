@@ -25,7 +25,14 @@ Open a new terminal and run the example that controls the multicopter to follow 
 roslaunch se3controller flying_example.launch
 ```
 
-### 3. Adjust Network Buffer Size
+### 3. Control the Multicopter to Follow a trajectory
+Open a new terminal and run the example that controls the multicopter to follow a circular path:
+
+```bash
+roslaunch se3controller flying_traj_example.launch
+```
+
+### 4. Adjust Network Buffer Size
 Increase the default network buffer size to handle larger image messages:
 
 ```bash
@@ -33,7 +40,7 @@ sudo sysctl -w net.core.rmem_default=16777216
 sudo sysctl -w net.core.rmem_max=16777216
 ```
 
-### 4. Launch EasySim ROS Wrapper to Receive Image Messages
+### 5. Launch EasySim ROS Wrapper to Receive Image Messages
 In a new terminal, run the following command to start the EasySim ROS wrapper, which will receive image messages from UE and publish them to ROS:
 
 ```bash
