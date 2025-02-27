@@ -330,15 +330,56 @@ visualization_msgs::Marker createMarker(double x, double y, double altitude, dou
     marker.pose.orientation.z = q.z();
     marker.pose.orientation.w = q.w();
 
-    marker.scale.x = 0.2; // Arrow length
-    marker.scale.y = 0.05; // Arrow width
-    marker.scale.z = 0.05; // Arrow height
+    marker.scale.x = 2; // Arrow length
+    marker.scale.y = 1; // Arrow width
+    marker.scale.z = 1; // Arrow height
     marker.color.a = 1.0;  // Opacity
     marker.color.r = 0.0;  // Red
     marker.color.g = 0.0;  // Green
     marker.color.b = 1.0;  // Blue
 
     return marker;
+}
+void generateAndPublishCircularTrajectory(ros::Publisher& traj_pub, ros::Publisher& marker_pub, 
+                                           double radius, double altitude, double omega_max, 
+                                           double dt, double duration) {
+    traj_msgs::Trajectory traj_msg;
+    traj_msg.header.stamp = ros::Time::now();
+
+    if (global_start_time.isZero()) {
+        global_start_time = ros::Time::now();
+    }
+
+    ros::Time current_time = ros::Time::now();
+    double time_elapsed = (current_time - global_start_time).toSec();
+
+    int num_points = static_cast<int>(duration / dt);
+    traj_msg.points.clear();
+    visualization_msgs::MarkerArray marker_array;
+
+    for (int i = 0; i < num_points; ++i) {
+        double angle = fmod(omega_max * (time_elapsed + i * dt) + M_PI / 2, 2 * M_PI);
+        double x = radius * cos(angle);
+        double y = radius * sin(angle);
+
+        double vx = -radius * sin(angle) * omega_max;
+        double vy = radius * cos(angle) * omega_max;
+
+        double ax = -radius * omega_max * omega_max * cos(angle);
+        double ay = -radius * omega_max * omega_max * sin(angle);
+
+        double yaw = atan2(vy, vx);
+
+        traj_msgs::TrajectoryPoint point = createTrajectoryPoint(x, y, altitude, vx, vy, yaw, ax, ay);
+        point.header.stamp = current_time + ros::Duration(i * dt);
+        traj_msg.points.push_back(point);
+
+        visualization_msgs::Marker marker = createMarker(x, y, altitude, yaw, i);
+        marker_array.markers.push_back(marker);
+    }
+
+    traj_pub.publish(traj_msg);
+    marker_pub.publish(marker_array);
 }
 
 // Function to generate and publish Eight-shaped trajectory
@@ -385,48 +426,7 @@ void generateAndPublishEightTrajectory(ros::Publisher& traj_pub, ros::Publisher&
     marker_pub.publish(marker_array);
 }
 
-// Function to generate and publish Circular trajectory
-void generateAndPublishCircularTrajectory(ros::Publisher& traj_pub, ros::Publisher& marker_pub, 
-                                           double radius, double altitude, double omega_max, 
-                                           double dt, double duration) {
-    traj_msgs::Trajectory traj_msg;
-    traj_msg.header.stamp = ros::Time::now();
 
-    if (global_start_time.isZero()) {
-        global_start_time = ros::Time::now();
-    }
-
-    ros::Time current_time = ros::Time::now();
-    double time_elapsed = (current_time - global_start_time).toSec();
-
-    int num_points = static_cast<int>(duration / dt);
-    traj_msg.points.clear();
-    visualization_msgs::MarkerArray marker_array;
-
-    for (int i = 0; i < num_points; ++i) {
-        double angle = fmod(omega_max * (time_elapsed + i * dt) + M_PI / 2, 2 * M_PI);
-        double x = radius * cos(angle);
-        double y = radius * sin(angle);
-
-        double vx = -radius * sin(angle) * omega_max;
-        double vy = radius * cos(angle) * omega_max;
-
-        double ax = -radius * omega_max * omega_max * cos(angle);
-        double ay = -radius * omega_max * omega_max * sin(angle);
-
-        double yaw = atan2(vy, vx);
-
-        traj_msgs::TrajectoryPoint point = createTrajectoryPoint(x, y, altitude, vx, vy, yaw, ax, ay);
-        point.header.stamp = current_time + ros::Duration(i * dt);
-        traj_msg.points.push_back(point);
-
-        visualization_msgs::Marker marker = createMarker(x, y, altitude, yaw, i);
-        marker_array.markers.push_back(marker);
-    }
-
-    traj_pub.publish(traj_msg);
-    marker_pub.publish(marker_array);
-}
 
 void timerCallback(const ros::TimerEvent& event, ros::Publisher& traj_pub, ros::Publisher& marker_pub, 
                    double radius, double altitude, double omega_x, double omega_y, double omega_max,
@@ -462,10 +462,10 @@ int main(int argc, char** argv) {
     nh.param("omega_x", omega_x, 1.2);
     nh.param("omega_y", omega_y, 1.5);
     nh.param("acceleration", acceleration, 0.1);
-    nh.param("dt", dt, 0.02);
+    nh.param("dt", dt, 0.05);
     nh.param("trajectory_type", trajectory_type, std::string("circle"));  // Default to circle
 
-    ros::Timer timer = n.createTimer(ros::Duration(1.0), 
+    ros::Timer timer = n.createTimer(ros::Duration(0.2), 
                                      boost::bind(&timerCallback, _1, 
                                      traj_pub, marker_pub, 
                                      radius, altitude, omega_x, omega_y, omega_max,

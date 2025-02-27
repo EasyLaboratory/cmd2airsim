@@ -6,6 +6,7 @@
 #include <geometry_msgs/PointStamped.h>
 #include <memory>
 #include "nav_msgs/Odometry.h"
+#include <random>
 
 class EasySimRosWrapper
 {
@@ -38,6 +39,12 @@ private:
     Eigen::Vector3f previous_position_;
     ros::Time previous_time_;
     bool first_frame_=true;
+
+    bool use_noise_;
+    float noise_std_dev_=5.0;
+    std::default_random_engine random_engine_;
+
+    std::normal_distribution<float>* normal_dist_;
 
 };
 
