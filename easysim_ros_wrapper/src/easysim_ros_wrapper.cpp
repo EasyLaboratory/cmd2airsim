@@ -1,7 +1,8 @@
 #include "easysim_ros_wrapper.h"
 
 EasySimRosWrapper::EasySimRosWrapper(ros::NodeHandle& nh, ros::NodeHandle& nh_private)
-    : nh_(nh), nh_private_(nh_private)
+    : nh_(nh), nh_private_(nh_private),
+      random_engine_(std::random_device{}())
 {   
 
 
@@ -13,18 +14,25 @@ EasySimRosWrapper::EasySimRosWrapper(ros::NodeHandle& nh, ros::NodeHandle& nh_pr
     position_pub_ = nh_private_.advertise<geometry_msgs::PointStamped>("player_position", 10);
     timer_ = nh_private_.createTimer(ros::Duration(timer_duration), &EasySimRosWrapper::timerCallback, this);
 
+
 }
 
 void EasySimRosWrapper::getParams(){
 
+
     nh_private_.param<std::string>("ip_address", ip_address, "127.0.0.1");
-    nh_private_.param("timer_duration", timer_duration, 0.01);  // Default is 0.01 seconds
+    nh_private_.param("timer_duration", timer_duration, 0.05);  // Default is 0.01 seconds
     nh_private_.param<std::string>("coordinate_frame", coordinate_frame, "world_enu"); // Default is "world"
+    nh_private_.param("use_noise", use_noise_, false);
+    nh_private_.param("noise_std_dev", noise_std_dev_, 5.0f);
+
+
+
 
     int temp_port;
     nh_private_.param("port", temp_port);
 
-    std::cout<<"temp_port"<<temp_port<<std::endl;
+    normal_dist_ = new std::normal_distribution<float>(0.0f, noise_std_dev_);
 
     if (temp_port >= 0 && temp_port <= std::numeric_limits<uint16_t>::max()) {
         port = static_cast<uint16_t>(temp_port);
@@ -35,6 +43,7 @@ void EasySimRosWrapper::getParams(){
         port = 50502; // 默认值
         ROS_INFO("Port value: %u", port);
     }
+
 
 }
 
@@ -53,6 +62,12 @@ void EasySimRosWrapper::timerCallback(const ros::TimerEvent& event)
         player_position = worldToENU(player_position);
     }
 
+    if (use_noise_ && normal_dist_) {
+        player_position.x() += (*normal_dist_)(random_engine_);
+        player_position.y() += (*normal_dist_)(random_engine_);
+        player_position.z() += (*normal_dist_)(random_engine_);
+    }
+    
     // Get the current time
     ros::Time current_time = ros::Time::now();
     Eigen::Vector3f linear_velocity(0.0, 0.0, 0.0);
@@ -68,6 +83,7 @@ void EasySimRosWrapper::timerCallback(const ros::TimerEvent& event)
             // Calculate velocity if the time difference is within the acceptable range
             linear_velocity = (player_position - previous_position_) / dt;
         } else {
+            std::cout <<"dt: "<<dt<<std::endl;
             // If the time difference is too large, treat this as a new frame and reset velocity
             linear_velocity = Eigen::Vector3f(0.0, 0.0, 0.0);
             // first_frame_=true;

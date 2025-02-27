@@ -10,12 +10,21 @@
         <param name="omega_max" value="1.5" />
         <param name="dt" value="0.02" />
 
+<<<<<<< HEAD
         <param name="omega_x" value="0.6" />
         <param name="omega_y" value="0.8" />
+=======
+        <param name="omega_x" value="0.8" />
+        <param name="omega_y" value="1.1" />
+>>>>>>> aea9953... add noise to player1 position
 
         <!-- 新增的参数，用于控制选择轨迹类型 -->
         <!-- <param name="trajectory_type" value="circle" />  -->
         <param name="trajectory_type" value="eight" /> <!-- 或者 "circle" -->
+<<<<<<< HEAD
+=======
+
+>>>>>>> aea9953... add noise to player1 position
 
     </node>
 
