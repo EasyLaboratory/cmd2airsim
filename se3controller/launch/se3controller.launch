@@ -35,7 +35,7 @@
 
         <param name="noise_x_std_dev" value="5.0" />
         <param name="noise_y_std_dev" value="5.0" />
-        <param name="noise_z_std_dev" value="0.5" />
+        <param name="noise_z_std_dev" value="1.0" />
 
     </node>
 
