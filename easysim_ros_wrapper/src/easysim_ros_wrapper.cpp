@@ -24,15 +24,18 @@ void EasySimRosWrapper::getParams(){
     nh_private_.param("timer_duration", timer_duration, 0.05);  // Default is 0.01 seconds
     nh_private_.param<std::string>("coordinate_frame", coordinate_frame, "world_enu"); // Default is "world"
     nh_private_.param("use_noise", use_noise_, false);
-    nh_private_.param("noise_std_dev", noise_std_dev_, 5.0f);
 
-
+    nh_private_.param("noise_x_std_dev", noise_x_std_dev, 5.0f);
+    nh_private_.param("noise_y_std_dev", noise_y_std_dev, 5.0f);
+    nh_private_.param("noise_z_std_dev", noise_z_std_dev, 5.0f);
 
 
     int temp_port;
     nh_private_.param("port", temp_port);
 
-    normal_dist_ = new std::normal_distribution<float>(0.0f, noise_std_dev_);
+    normal_dist_x_= new std::normal_distribution<float>(0.0f, noise_x_std_dev);
+    normal_dist_y_ = new std::normal_distribution<float>(0.0f, noise_y_std_dev);
+    normal_dist_z_ = new std::normal_distribution<float>(0.0f, noise_z_std_dev);
 
     if (temp_port >= 0 && temp_port <= std::numeric_limits<uint16_t>::max()) {
         port = static_cast<uint16_t>(temp_port);
@@ -62,10 +65,10 @@ void EasySimRosWrapper::timerCallback(const ros::TimerEvent& event)
         player_position = worldToENU(player_position);
     }
 
-    if (use_noise_ && normal_dist_) {
-        player_position.x() += (*normal_dist_)(random_engine_);
-        player_position.y() += (*normal_dist_)(random_engine_);
-        player_position.z() += (*normal_dist_)(random_engine_);
+    if (use_noise_ && normal_dist_x_&&normal_dist_y_&&normal_dist_z_) {
+        player_position.x() += (*normal_dist_x_)(random_engine_);
+        player_position.y() += (*normal_dist_y_)(random_engine_);
+        player_position.z() += (*normal_dist_z_)(random_engine_);
     }
     
     // Get the current time

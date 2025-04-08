@@ -41,10 +41,16 @@ private:
     bool first_frame_=true;
 
     bool use_noise_;
-    float noise_std_dev_=5.0;
+
+    float noise_x_std_dev=5.0;
+    float noise_y_std_dev=5.0;
+    float noise_z_std_dev=5.0;
+
     std::default_random_engine random_engine_;
 
-    std::normal_distribution<float>* normal_dist_;
+    std::normal_distribution<float>* normal_dist_x_;
+    std::normal_distribution<float>* normal_dist_y_;
+    std::normal_distribution<float>* normal_dist_z_;
 
 };
 
